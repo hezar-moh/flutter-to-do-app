@@ -36,7 +36,15 @@ class _TodoScreenState extends State<TodoScreen> {
     super.initState();
     loadTasks();
   }
-
+  // ADD TASK
+  void addTask() {
+    if (controller.text.isNotEmpty) {
+      setState(() {
+        tasks.add({'title': controller.text, 'completed': false});
+      });
+      controller.clear();
+      saveTasks();
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
