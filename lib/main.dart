@@ -36,7 +36,8 @@ class _TodoScreenState extends State<TodoScreen> {
     super.initState();
     loadTasks();
   }
-  // ADD TASK
+
+    // ADD TASK
   void addTask() {
     if (controller.text.isNotEmpty) {
       setState(() {
@@ -45,6 +46,7 @@ class _TodoScreenState extends State<TodoScreen> {
       controller.clear();
       saveTasks();
     }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,6 +66,15 @@ class _TodoScreenState extends State<TodoScreen> {
                       border: OutlineInputBorder(),
                     ),
                   ),
+                  
+      void toggleTask(int index, bool? value) {
+        setState(() {
+         tasks[index]['completed'] = value;
+    });
+    saveTasks();
+  }
+
+
                 ),
                 SizedBox(width: 10),
                 ElevatedButton(onPressed: addTask, child: Text("ADD")),
