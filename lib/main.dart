@@ -37,6 +37,24 @@ class _TodoScreenState extends State<TodoScreen> {
     loadTasks();
   }
 
+    // ADD TASK
+  void addTask() {
+    if (controller.text.isNotEmpty) {
+      setState(() {
+        tasks.add({'title': controller.text, 'completed': false});
+      });
+      controller.clear();
+      saveTasks();
+    }
+  }
+
+    // DELETE TASK
+  void deleteTask(int index) {
+    setState(() {
+      tasks.removeAt(index);
+    });
+    saveTasks();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +74,15 @@ class _TodoScreenState extends State<TodoScreen> {
                       border: OutlineInputBorder(),
                     ),
                   ),
+                  
+      void toggleTask(int index, bool? value) {
+        setState(() {
+         tasks[index]['completed'] = value;
+    });
+    saveTasks();
+  }
+
+
                 ),
                 SizedBox(width: 10),
                 ElevatedButton(onPressed: addTask, child: Text("ADD")),
@@ -103,11 +130,19 @@ class _TodoScreenState extends State<TodoScreen> {
                             onPressed: () {
                               deleteTask(index);
                             },
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                              // LOAD TASKS LOCALLY
+          void loadTasks() async {
+          final prefs = await SharedPreferences.getInstance();
+         String? data = prefs.getString('tasks');
+
+         if (data != null) {
+          setState(() {
+        tasks = List<Map<String, dynamic>>.from(jsonDecode(data));
+      });
+    }
+  }
+
+ 
           ),
         ],
       ),
