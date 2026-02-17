@@ -56,6 +56,15 @@ class _TodoScreenState extends State<TodoScreen> {
                       border: OutlineInputBorder(),
                     ),
                   ),
+                  
+      void toggleTask(int index, bool? value) {
+        setState(() {
+         tasks[index]['completed'] = value;
+    });
+    saveTasks();
+  }
+
+
                 ),
                 SizedBox(width: 10),
                 ElevatedButton(onPressed: addTask, child: Text("ADD")),
