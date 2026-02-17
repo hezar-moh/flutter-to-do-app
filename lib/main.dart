@@ -122,11 +122,19 @@ class _TodoScreenState extends State<TodoScreen> {
                             onPressed: () {
                               deleteTask(index);
                             },
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                              // LOAD TASKS LOCALLY
+          void loadTasks() async {
+          final prefs = await SharedPreferences.getInstance();
+         String? data = prefs.getString('tasks');
+
+         if (data != null) {
+          setState(() {
+        tasks = List<Map<String, dynamic>>.from(jsonDecode(data));
+      });
+    }
+  }
+
+ 
           ),
         ],
       ),
