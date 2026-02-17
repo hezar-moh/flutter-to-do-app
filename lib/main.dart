@@ -47,6 +47,14 @@ class _TodoScreenState extends State<TodoScreen> {
       saveTasks();
     }
   }
+
+    // DELETE TASK
+  void deleteTask(int index) {
+    setState(() {
+      tasks.removeAt(index);
+    });
+    saveTasks();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
