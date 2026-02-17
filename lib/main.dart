@@ -103,6 +103,44 @@ class _TodoScreenState extends State<TodoScreen> {
                             onPressed: () {
                               deleteTask(index);
                             },
+                              // LOAD TASKS LOCALLY
+  void loadTasks() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? data = prefs.getString('tasks');
+
+    if (data != null) {
+      setState(() {
+        tasks = List<Map<String, dynamic>>.from(jsonDecode(data));
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("My To-Do List"), centerTitle: true),
+      body: Column(
+        children: [
+          // INPUT FIELD
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: controller,
+                    decoration: InputDecoration(
+                      hintText: "Enter new task",
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(onPressed: addTask, child: Text("ADD")),
+              ],
+            ),
+          ),
+
                           ),
                         ),
                       );
