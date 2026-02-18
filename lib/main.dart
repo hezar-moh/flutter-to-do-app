@@ -37,7 +37,7 @@ class _TodoScreenState extends State<TodoScreen> {
     loadTasks();
   }
 
-  // ADD TASK
+
   void addTask() {
     if (controller.text.isNotEmpty) {
       setState(() {
@@ -48,7 +48,7 @@ class _TodoScreenState extends State<TodoScreen> {
     }
   }
 
-  // DELETE TASK
+
   void deleteTask(int index) {
     setState(() {
       tasks.removeAt(index);
@@ -56,7 +56,7 @@ class _TodoScreenState extends State<TodoScreen> {
     saveTasks();
   }
 
-  // TOGGLE COMPLETE
+ 
   void toggleTask(int index, bool? value) {
     setState(() {
       tasks[index]['completed'] = value;
@@ -64,13 +64,12 @@ class _TodoScreenState extends State<TodoScreen> {
     saveTasks();
   }
 
-  // SAVE TASKS LOCALLY
   void saveTasks() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('tasks', jsonEncode(tasks));
   }
 
-  // LOAD TASKS LOCALLY
+
   void loadTasks() async {
     final prefs = await SharedPreferences.getInstance();
     String? data = prefs.getString('tasks');
@@ -88,7 +87,7 @@ class _TodoScreenState extends State<TodoScreen> {
       appBar: AppBar(title: Text("My To-Do List"), centerTitle: true),
       body: Column(
         children: [
-          // INPUT FIELD
+      
           Padding(
             padding: EdgeInsets.all(10),
             child: Row(
@@ -108,7 +107,7 @@ class _TodoScreenState extends State<TodoScreen> {
             ),
           ),
 
-          // TASK LIST
+          
           Expanded(
             child: tasks.isEmpty
                 ? Center(
@@ -123,7 +122,7 @@ class _TodoScreenState extends State<TodoScreen> {
                           vertical: 5,
                         ),
                         child: ListTile(
-                          // TASK TITLE
+                      
                           title: Text(
                             tasks[index]['title'],
                             style: TextStyle(
@@ -134,7 +133,7 @@ class _TodoScreenState extends State<TodoScreen> {
                             ),
                           ),
 
-                          // CHECKBOX
+                  
                           leading: Checkbox(
                             value: tasks[index]['completed'],
                             onChanged: (value) {
@@ -142,7 +141,6 @@ class _TodoScreenState extends State<TodoScreen> {
                             },
                           ),
 
-                          // DELETE BUTTON
                           trailing: IconButton(
                             icon: Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
